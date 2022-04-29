@@ -36,6 +36,12 @@ t = open('tabela.txt', "r")
 nbp = json.load(t)
 
 
+ilosc_walut = len(nbp[0]['rates'])
+
+print('Ilość walut:', ilosc_walut)
+
+
+
 def pobierz_waluta(v):
        return nbp[0]['rates'][v]['code']
 
@@ -45,42 +51,25 @@ def pobierz_buy(v1):
 def pobierz_sell(v2):
         return nbp[0]['rates'][v2]['ask']
 
-#BID
-buy = {'PLN': 1, 
-        pobierz_waluta(0): pobierz_buy(0),
-        pobierz_waluta(1): pobierz_buy(1),
-        pobierz_waluta(2): pobierz_buy(2),
-        pobierz_waluta(3): pobierz_buy(3),
-        pobierz_waluta(4): pobierz_buy(4),
-        pobierz_waluta(5): pobierz_buy(5),
-        pobierz_waluta(6): pobierz_buy(6),
-        pobierz_waluta(7): pobierz_buy(7),
-        pobierz_waluta(8): pobierz_buy(8),
-        pobierz_waluta(9): pobierz_buy(9),
-        pobierz_waluta(10): pobierz_buy(10),
-        pobierz_waluta(11): pobierz_buy(11),
-        } 
+
+
+buytest = {'PLN':1,}
+
+for va in range(ilosc_walut):
+    buytest[nbp[0]['rates'][va]['code']]= nbp[0]['rates'][va]['bid']
+
 #ASK
-sell = {'PLN': 1,
-        pobierz_waluta(0): pobierz_sell(0),
-        pobierz_waluta(1): pobierz_sell(1),
-        pobierz_waluta(2): pobierz_sell(2),
-        pobierz_waluta(3): pobierz_sell(3),
-        pobierz_waluta(4): pobierz_sell(4),
-        pobierz_waluta(5): pobierz_sell(5),
-        pobierz_waluta(6): pobierz_sell(6),
-        pobierz_waluta(7): pobierz_sell(7),
-        pobierz_waluta(8): pobierz_sell(8),
-        pobierz_waluta(9): pobierz_sell(9),
-        pobierz_waluta(10): pobierz_sell(10),
-        pobierz_waluta(11): pobierz_sell(11),
-        } 
+selltest = {'PLN': 1,}
+
+for va in range(ilosc_walut):
+    buytest[nbp[0]['rates'][va]['code']]= nbp[0]['rates'][va]['ask']
+
 
 
 try:
     a = float(args.kasa)
-    b = buy[args.waluta1]
-    c = sell[args.waluta2]
+    b = buytest[args.waluta1]
+    c = selltest[args.waluta2]
 except:
     print('WPROWADŹ POPRAWNE DANE: \n Kwotę, oraz dwa oznaczenia waluty z listy dostępnych (case sensitive): \nPLN, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}. \n'.format(pobierz_waluta(0), pobierz_waluta(1), pobierz_waluta(2), pobierz_waluta(3), pobierz_waluta(4), pobierz_waluta(5), pobierz_waluta(6), pobierz_waluta(7), pobierz_waluta(8), pobierz_waluta(9), pobierz_waluta(10), pobierz_waluta(11)))
     exit()
