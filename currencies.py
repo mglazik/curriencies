@@ -31,29 +31,13 @@ if new_file>old_file+43200: #12 godzin
 t = open(api_cur, "r")
 nbp = json.load(t)
 
-ilosc_walut = len(nbp[0]['rates'])
+buytest = {'PLN':1,} #BID
+selltest = {'PLN':1,} #ASK
 
-def pobierz_waluta(va):
-       return nbp[0]['rates'][va]['code']
-
-def pobierz_buy(va):
-        return nbp[0]['rates'][va]['bid']
-
-def pobierz_sell(va):
-        return nbp[0]['rates'][va]['ask']
-
-#BID
-buytest = {'PLN':1,}
-
-for va in range(ilosc_walut):
-    buytest[pobierz_waluta(va)]= pobierz_buy(va)
-
-#ASK
-selltest = {'PLN':1,}
-
-for va in range(ilosc_walut):
-    selltest[pobierz_waluta(va)]= pobierz_sell(va)
-
+for para_walut in nbp[0]['rates']:
+    buytest[para_walut['code']]= para_walut['ask']
+    selltest[para_walut['code']]= para_walut['bid']
+   
 try:
     a = float(args.kasa)
     b = buytest[args.waluta1]
