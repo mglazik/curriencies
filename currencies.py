@@ -7,6 +7,8 @@ import json
 import os
 import time
 
+#JAKAŚ ZMIANA
+
 parser = argparse.ArgumentParser()
 parser.add_argument('kasa')
 parser.add_argument('waluta1')
